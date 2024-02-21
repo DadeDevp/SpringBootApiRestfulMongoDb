@@ -1,0 +1,5 @@
+hashCode Equals: Serve para comparar objetos. Por padrão os objetos serao comparados pelo ID
+
+Serializable: Padrao do java para que os objetos sejam convertidos em bytes para ser trafegado pela internet ou gravado em arquivo
+
+ResponseEntity<T> : É um objeto que encaspusla uma estrutura necessária para retornar respostas http
