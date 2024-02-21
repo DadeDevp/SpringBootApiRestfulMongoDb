@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: David
+Build-Jdk: 17.0.8.1
+Implementation-Title: workshopmongo
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.davidpires
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/workshopmongo
+Created-By: Maven Integration for Eclipse
+
