@@ -2,4 +2,48 @@ hashCode Equals: Serve para comparar objetos. Por padrão os objetos serao compa
 
 Serializable: Padrao do java para que os objetos sejam convertidos em bytes para ser trafegado pela internet ou gravado em arquivo
 
-ResponseEntity<T> : É um objeto que encaspusla uma estrutura necessária para retornar respostas http
+ResponseEntity<T> : É um objeto do spring que encaspusla uma estrutura necessária para retornar respostas http
+
+Nas interfaces repositories que herdam do MongoRepository, o MongoRepository precisa de dois parametros, o tipo de dados do Repositorio e o tipo de dados do ID
+	@Repository
+	public interface UserRepository extends MongoRepository<User, String>{
+
+	}
+
+
+Para indicar que uma classe corresponde a uma colecao do MongoDB, usar a notacao @Document ou @Document(collection="user")
+Se for só @Document o spring vai pegar o nome da classe e por em minusculo para associar com a colecao, exemplo: user
+
+	@Document
+	public class User implements Serializable {}
+
+
+============= Configuracao de um entidade e divsao de pacotes ===========
+
+Estrutura e Divisão de Pacotes
+Pacote domain (ou model):
+
+User: Classe de domínio que representa a entidade User. Deve incluir:
+	Atributos que representam as propriedades da entidade.
+	Métodos getters e setters para acessar e modificar os atributos.
+	Métodos hashCode e equals para comparações de identidade.
+	Construtores para criar instâncias da entidade.
+	
+Pacote repository:
+	UserRepository: Interface que define o repositório para a entidade User. 
+	Estende uma interface de repositório do framework de persistência utilizado (como JPA JpaRepository, Hibernate Repository, etc.), fornecendo métodos de persistência e consulta específicos para a entidade User.
+
+Pacote service:
+	UserService: Classe de serviço que contém a lógica de negócio para operações relacionadas à entidade User. 
+	Utiliza o UserRepository (injetado como dependência) para realizar operações de CRUD (Create, Read, Update, Delete) e outras lógicas de negócio específicas.
+	Pacote controller (ou resource):
+
+UserResource (ou UserController): Classe que define os endpoints da API para operações relacionadas à entidade User. 
+Responsável por tratar requisições HTTP (GET, POST, PUT, DELETE), delegando a execução das operações para o UserService e retornando a resposta adequada ao cliente.
+
+
+Resumo da Responsabilidade dos Componentes
+	Entidade (User): Representa o modelo de dados.
+	Repositório (UserRepository): Abstrai o acesso ao banco de dados.
+	Serviço (UserService): Contém lógica de negócio e interage com o repositório.
+	Controlador (UserResource ou UserController): Expõe a API e mapeia as operações para a lógica de negócio.
