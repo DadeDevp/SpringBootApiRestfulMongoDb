@@ -16,7 +16,16 @@ Se for só @Document o spring vai pegar o nome da classe e por em minusculo para
 
 	@Document
 	public class User implements Serializable {}
+	
 
+Para associar o id passado via http get a id recebido no metód findById tenho que usar a annotation @PathVariable
+@GetMapping(value="/{id}")
+	public ResponseEntity<UserDTO> findbyId (@PathVariable String id){
+
+
+O @ControllerAdvice indica para o spring que essa classe será responsável para tratar os possíveis erros das requisicoes
+		@ControllerAdvice
+		public class ResourceExceptionHandler {}
 
 ============= Configuracao de um entidade e divsao de pacotes ===========
 
@@ -40,6 +49,13 @@ Pacote service:
 
 UserResource (ou UserController): Classe que define os endpoints da API para operações relacionadas à entidade User. 
 Responsável por tratar requisições HTTP (GET, POST, PUT, DELETE), delegando a execução das operações para o UserService e retornando a resposta adequada ao cliente.
+
+UserDTO: 
+	Classe que serve como um Data Transfer Object para a entidade User. O UserDTO é útil para enviar e receber dados específicos do cliente ou da API, 
+	evitando a exposição direta da entidade de domínio. Pode incluir:
+	Atributos específicos que devem ser enviados para ou recebidos do cliente.
+	Métodos getters e setters.
+	Não inclui lógica de negócio, apenas dados.
 
 
 Resumo da Responsabilidade dos Componentes

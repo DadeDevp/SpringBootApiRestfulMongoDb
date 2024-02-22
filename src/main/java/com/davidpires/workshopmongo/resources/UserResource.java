@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class UserResource {
 	private UserService service;
 
 	@GetMapping
-	public ResponseEntity<List<UserDTO>> findAll (){
+	public ResponseEntity<List<UserDTO>> findAll(){
 		List<User> list = service.findAll();
 		
 		//Pego cada objeto User dentro de list e crio um UserDTO e coloco na listDTO
@@ -29,4 +30,12 @@ public class UserResource {
 		
 		return ResponseEntity.ok().body(listDTO);
 	}
+	
+	@GetMapping(value="/{id}")
+	public ResponseEntity<UserDTO> findbyId (@PathVariable String id){
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(new UserDTO(obj));
+	}
+	
+	
 }
