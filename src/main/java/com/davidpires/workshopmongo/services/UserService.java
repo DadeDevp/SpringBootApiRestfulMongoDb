@@ -31,8 +31,16 @@ public class UserService {
 		return repo.insert(obj);
 	}
 	
+	public void delete(String id) {
+		//chama o método findById para pesquisar o obj primeiro e se for o caso já lançar a excecao
+		findById(id);
+		repo.deleteById(id);
+	}
+	
+	//Converter um UserDTO para um User
 	public User fromDTO(UserDTO objDTO) {
 		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail() );
 	}
+	
 
 }
