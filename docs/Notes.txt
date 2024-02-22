@@ -63,3 +63,35 @@ Resumo da Responsabilidade dos Componentes
 	Repositório (UserRepository): Abstrai o acesso ao banco de dados.
 	Serviço (UserService): Contém lógica de negócio e interage com o repositório.
 	Controlador (UserResource ou UserController): Expõe a API e mapeia as operações para a lógica de negócio.
+=========================================================================================================================================
+
+============= Lógica de tratamentos de erros ===========
+
+1. Serviço UserService
+Método findAll: Retorna todos os usuários. Se tudo ocorrer normalmente, este método simplesmente recupera e retorna a lista de usuários do repositório.
+Método findById: Busca um usuário por ID. Se o usuário não for encontrado, o método orElseThrow do Optional<User> lança uma exceção personalizada ObjectNotFoundException.
+
+
+2. Exceção Personalizada ObjectNotFoundException
+Esta é uma classe de exceção personalizada que estende RuntimeException. Ela é usada para sinalizar uma situação específica onde um objeto (neste contexto, um usuário) não é encontrado.
+Quando instanciada, ela aceita uma mensagem (por exemplo, "Objeto não encontrado") que pode ser usada para fornecer mais detalhes sobre a exceção.
+
+
+3. Classe StandardError
+Define a estrutura de uma resposta de erro padronizada que será enviada ao cliente. Inclui detalhes como timestamp, status HTTP, mensagem de erro, e o caminho da requisição que gerou o erro.
+Esta estrutura é útil para fornecer aos clientes da API informações consistentes e úteis sobre erros.
+
+
+4. Manipulador de Exceções ResourceExceptionHandler
+Anotado com @ControllerAdvice, esta classe permite que você lide globalmente com exceções em toda a aplicação, proporcionando um ponto central para tratamento de erros.
+O método objectNotFound é anotado com @ExceptionHandler(ObjectNotFoundException.class), indicando que ele deve ser invocado quando uma ObjectNotFoundException for lançada em qualquer parte da aplicação.
+Dentro deste método, um objeto StandardError é criado e preenchido com detalhes sobre o erro, incluindo a mensagem da exceção, o status HTTP (404 Not Found, neste caso), e o URI da requisição que falhou.
+Finalmente, este método retorna uma ResponseEntity contendo o objeto StandardError, que é então enviado como resposta ao cliente.
+Fluxo do Tratamento de Erros
+Uma requisição é feita para buscar um usuário por ID.
+Se o usuário não for encontrado, findById em UserService lança uma ObjectNotFoundException.
+A exceção é capturada pelo manipulador de exceções global ResourceExceptionHandler.
+ResourceExceptionHandler cria um StandardError com detalhes sobre o erro e o retorna ao cliente em uma resposta HTTP com status 404.
+
+Este fluxo garante que, quando erros específicos ocorrem, a aplicação responde de maneira padronizada e informativa, 
+melhorando a experiência do usuário e facilitando a depuração por parte dos desenvolvedores.
