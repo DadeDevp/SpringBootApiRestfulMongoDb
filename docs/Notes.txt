@@ -95,3 +95,5 @@ ResourceExceptionHandler cria um StandardError com detalhes sobre o erro e o ret
 
 Este fluxo garante que, quando erros específicos ocorrem, a aplicação responde de maneira padronizada e informativa, 
 melhorando a experiência do usuário e facilitando a depuração por parte dos desenvolvedores.
+
+=========================================================================================================================================
