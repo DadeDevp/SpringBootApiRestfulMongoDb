@@ -97,3 +97,17 @@ Este fluxo garante que, quando erros específicos ocorrem, a aplicação respond
 melhorando a experiência do usuário e facilitando a depuração por parte dos desenvolvedores.
 
 =========================================================================================================================================
+
+Query methods:
+
+https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/ 
+https://docs.spring.io/spring-data/data-document/docs/current/reference/html/
+
+padrao é: findBy(nomeDoCampo)(ParametroEspecial)(Tipo tipo)
+ex: findByBirthdateAfter(Date date)
+
+ex: findByBirthdateGreaterThan(Date date)
+
+ex: findByAgeIn(Collection ages) -----> Neste caso ele retorna os registros cuja a idade está dentro da  colecao
+
+ex: findByFirstnameContaining(String name) ---> Ele retorna os nomes que contém o name
