@@ -21,8 +21,9 @@ public class PostService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 	
+	//Fazendo uso dos QueryMethods https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/ 
 	public List<Post> findByTitle(String text){
-		return repo.findByTitleContainingIgnoreCase(text);
+		return repo.searchTitle(text);
 	}
 
 }

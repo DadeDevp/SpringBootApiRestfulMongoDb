@@ -111,3 +111,14 @@ ex: findByBirthdateGreaterThan(Date date)
 ex: findByAgeIn(Collection ages) -----> Neste caso ele retorna os registros cuja a idade está dentro da  colecao
 
 ex: findByFirstnameContaining(String name) ---> Ele retorna os nomes que contém o name
+
+=========================================================================================================================================
+
+Consulta simples com @Query
+
+
+
+Referências: 
+https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/ 
+https://docs.spring.io/spring-data/data-document/docs/current/reference/html/ 
+https://docs.mongodb.com/manual/reference/operator/query/regex/ 
