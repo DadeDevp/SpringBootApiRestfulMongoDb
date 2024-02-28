@@ -1,5 +1,6 @@
 package com.davidpires.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,15 @@ public class PostService {
 	//Fazendo uso dos QueryMethods https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/ 
 	public List<Post> findByTitle(String text){
 		return repo.searchTitle(text);
+		//return repo.findByTitleContainingIgnoreCase(text); //segunda opcao para fazer a mesma pesquisa
 	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		//A nossa data é um instancia, as operacoes abaixo é para acrescentar um dia na nossa pesquisa
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 *1000);
+		return repo.fullSearch(text, minDate, maxDate);
+	}
+	
+	
 
 }
